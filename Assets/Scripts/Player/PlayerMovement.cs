@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInput inputActions;
     private Vector2 movementDirection;
+    private Vector3 respawnPoint;
 
     private Rigidbody m_Rb;
     private bool m_IsJumping;
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Jump.performed += _ => Jump();
 
         TryGetComponent(out m_Rb);
+        respawnPoint = m_Rb.position;
     }
 
     private void OnEnable() => inputActions.Enable();
@@ -28,8 +31,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(m_Rb.position.y < -10f) Respawn();
+        
         m_Rb.AddForce(new Vector3(movementDirection.x, 0, movementDirection.y), ForceMode.Impulse);
         //m_Rb.MovePosition(m_Rb.position + new Vector3(movementDirection.x, 0, movementDirection.y) * movementSpeed * Time.fixedDeltaTime);
+    }
+
+    private void Respawn()
+    {
+        m_Rb.MovePosition(respawnPoint);
+        m_Rb.velocity = Vector3.zero;
+        m_Rb.angularVelocity = Vector3.zero;
     }
 
     private void Jump()
@@ -42,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!collision.gameObject.CompareTag("Ground")) return;
+
         m_IsJumping = false;
     }
 }
