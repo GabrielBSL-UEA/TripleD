@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 respawnPoint;
 
     private Rigidbody m_Rb;
+
     private bool m_IsJumping;
+    private bool m_CanMove = true;
 
     private void Awake()
     {
@@ -31,9 +33,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!m_CanMove) return;
+
         if(m_Rb.position.y < -10f) Respawn();
         
-        m_Rb.AddForce(new Vector3(movementDirection.x, 0, movementDirection.y), ForceMode.Impulse);
+        m_Rb.AddForce(new Vector3(movementDirection.x, 0, movementDirection.y) * movementSpeed, ForceMode.Impulse);
         //m_Rb.MovePosition(m_Rb.position + new Vector3(movementDirection.x, 0, movementDirection.y) * movementSpeed * Time.fixedDeltaTime);
     }
 
@@ -46,10 +50,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (m_IsJumping) return;
+        if (m_IsJumping || !m_CanMove) return;
 
         m_IsJumping = true;
         m_Rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+    }
+
+    public void LockPlayer()
+    {
+        m_CanMove = false;
+
+        m_Rb.angularVelocity = Vector3.zero;
+        m_Rb.velocity = Vector3.zero;
+        print("You win!");
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -5195,6 +5195,7 @@ GameObject:
   - component: {fileID: 1885727997}
   - component: {fileID: 1885727996}
   - component: {fileID: 1885727995}
+  - component: {fileID: 1885727998}
   m_Layer: 0
   m_Name: Plane (28)
   m_TagString: Ground
@@ -5279,6 +5280,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885727993}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1885727998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885727993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10540d1fa9a2434f9340ca4b57d7268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1929578025
 GameObject:
   m_ObjectHideFlags: 0
