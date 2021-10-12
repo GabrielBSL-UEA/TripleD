@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody m_Rb;
 
     private bool m_IsJumping;
-    private bool m_CanMove = true;
+    private bool m_CanMove = false;
 
     private void Awake()
     {
@@ -56,13 +56,14 @@ public class PlayerMovement : MonoBehaviour
         m_Rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
     }
 
-    public void LockPlayer()
+    public void UnlockPlayer(bool value)
     {
-        m_CanMove = false;
+        m_CanMove = value;
+
+        if (!value) return;
 
         m_Rb.angularVelocity = Vector3.zero;
         m_Rb.velocity = Vector3.zero;
-        print("You win!");
     }
 
     private void OnCollisionEnter(Collision collision)
