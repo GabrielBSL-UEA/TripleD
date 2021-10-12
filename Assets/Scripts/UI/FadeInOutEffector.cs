@@ -13,12 +13,8 @@ public class FadeInOutEffector : MonoBehaviour
     {
         TryGetComponent(out m_Cg);
 
-        LeanTween.value(0, 1, fadeInOutTime)
+        LeanTween.alphaCanvas(m_Cg, 0, fadeInOutTime)
             .setLoopPingPong()
-            .setEaseInOutCubic()
-            .setOnUpdate((float value) =>
-            {
-                m_Cg.alpha = value;
-            });
+            .setEaseInOutCubic();
     }
 }
