@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         m_CanMove = value;
 
-        if (!value) return;
+        if (value) return;
 
         m_Rb.angularVelocity = Vector3.zero;
         m_Rb.velocity = Vector3.zero;

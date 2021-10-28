@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class WinPlatform : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
+    [SerializeField] private GameObject winCanvas;
 
-        PlayerController.Instance.SetMovement(true);
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        PlayerController.Instance.SetMovement(false);
+        winCanvas.SetActive(true);
     }
 }
