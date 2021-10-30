@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CanvasGroup))]
@@ -15,6 +13,12 @@ public class FadeInOutEffector : MonoBehaviour
 
         LeanTween.alphaCanvas(m_Cg, 0, fadeInOutTime)
             .setLoopPingPong()
+            .setIgnoreTimeScale(true)
             .setEaseInOutCubic();
+    }
+
+    private void OnDisable()
+    {
+        LeanTween.cancel(gameObject);
     }
 }
