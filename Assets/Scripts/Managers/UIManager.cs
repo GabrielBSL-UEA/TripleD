@@ -6,8 +6,6 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [SerializeField] private List<GameObject> canvasList;
-
     [Header("Panels")]
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject hudPanel;
@@ -33,15 +31,12 @@ public class UIManager : MonoBehaviour
     {
         if(Instance != null)
         {
-            foreach (GameObject canvas in canvasList) Destroy(canvas);
-
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        foreach (GameObject canvas in canvasList) DontDestroyOnLoad(canvas);
 
         resumeButton.onClick.AddListener(() => SetPause());
         pauseButton.onClick.AddListener(() => SetPause());

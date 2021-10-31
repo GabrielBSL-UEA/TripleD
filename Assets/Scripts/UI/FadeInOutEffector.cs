@@ -10,7 +10,10 @@ public class FadeInOutEffector : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out m_Cg);
+    }
 
+    private void OnEnable()
+    {
         LeanTween.alphaCanvas(m_Cg, 0, fadeInOutTime)
             .setLoopPingPong()
             .setIgnoreTimeScale(true)
@@ -20,5 +23,6 @@ public class FadeInOutEffector : MonoBehaviour
     private void OnDisable()
     {
         LeanTween.cancel(gameObject);
+        m_Cg.alpha = 1;
     }
 }
