@@ -42,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Respawn()
     {
+        GameManager.Instance.RestartLevel();
+
         m_Rb.MovePosition(respawnPoint);
         m_Rb.velocity = Vector3.zero;
         m_Rb.angularVelocity = Vector3.zero;

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     public bool m_Paused { get; private set; } = false;
 
     private bool m_GameStarted = false;
+
+    public UnityEvent OnRestart;
 
     private void Awake()
     {
@@ -46,14 +49,25 @@ public class GameManager : MonoBehaviour
     public void LoadLevel(int index, bool currentSceneReference)
     {
         int indexReference = currentSceneReference ? SceneManager.GetActiveScene().buildIndex : 0;
+        int nextScene = indexReference + index;
 
-        SceneManager.LoadScene(indexReference + index);
+        if(nextScene >= SceneManager.sceneCountInBuildSettings)
+        {
+            nextScene = 0;
+        }
+        
+        SceneManager.LoadScene(nextScene);
     }
 
     private void OnLevelLoad(Scene arg0, LoadSceneMode arg1)
     {
         UIManager.Instance.SetCanvasToGameplay();
         PlayerController.Instance.SetMovement(true);
+    }
+
+    public void RestartLevel()
+    {
+        OnRestart?.Invoke();
     }
 
     public void QuitGame()

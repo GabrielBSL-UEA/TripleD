@@ -11,6 +11,7 @@ public class MovablePlatform : MonoBehaviour
     void Start()
     {
         ToEnd();
+        GameManager.Instance.OnRestart.AddListener(ReturnToStart);
     }
 
     private void ToStart()
@@ -31,5 +32,12 @@ public class MovablePlatform : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(initialPoint.position, endPoint.position);
+    }
+
+    public void ReturnToStart()
+    {
+        LeanTween.cancel(gameObject);
+        transform.position = initialPoint.position;
+        ToEnd();
     }
 }
